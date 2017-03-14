@@ -1,0 +1,164 @@
+
+<!-- 婚丧/申报 -->
+<div class="panel">
+  <div class="panel-heading  panel-primary">
+    申报
+  </div>
+  <div class="panel-body">
+    <div class="container-fluid">
+      <form class="form-horizontal" role="form"  name="form"  novalidate>
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label  class="col-md-5 control-label">申报人</label>
+            <div class="col-md-7" ng-class="{'has-error':form.staff.$error.required&&form.$submitted}">
+              <input type="text" class="form-control" ng-model=declareData.staff  name="staff"  required>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-6 control-label">与申报人关系</label>
+            <div class="col-md-6">
+              <select class="form-control" ng-model="staffRelationshipBS" ng-change="staffRelationship()"  ng-init="staffRelationshipBS='本人'">
+                <option>本人</option>
+                <option>直系亲属</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">政治面貌</label>
+            <div class="col-md-7">
+              <input type="text" class="form-control" ng-model=declareData.staffPoliticalStatus>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-3 control-label">单位职务</label>
+            <div class="col-md-9">
+              <select class="form-control" ng-model="staffJobBS" ng-change="staffJob()" ng-init="staffJobBS='县级党员干部'">
+                <option>县级党员干部</option>
+                <option>科级党员干部</option>
+                <option>社区基层干部</option>
+                <option>一般工作人员</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">配偶</label>
+            <div class="col-md-7">
+              <input type="text" class="form-control" ng-model=declareData.staffSpouse>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">联系电话</label>
+            <div class="col-md-7" ng-class="{'has-error':form.staffPhone.$error.required&&form.$submitted}">
+              <input type="text" class="form-control" ng-model=declareData.staffPhone  name="staffPhone" required >
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">操办事项</label>
+            <div class="col-md-7">
+              <select class="form-control" ng-model="eventTypeBS" ng-change="eventType()" ng-init="eventTypeBS='婚嫁'">
+                <option>婚嫁</option>
+                <option>丧葬</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-3 control-label">操办次数</label>
+            <div class="col-md-9">
+              <input type="number" class="form-control"  ng-model="declareData.eventCount" min="1">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">操办地点</label>
+            <div class="col-md-7" ng-class="{'has-error':form.location.$error.required&&form.$submitted}">
+              <input type="text" class="form-control" ng-model=declareData.location  name="location" required>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">操办桌数</label>
+            <div class="col-md-7">
+              <input type="number" class="form-control" value="50" ng-model=declareData.tableCount>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">参加人数</label>
+            <div class="col-md-7">
+              <input type="number" class="form-control" value="50" ng-model=declareData.peopleCount>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-3 control-label">操办时间</label>
+            <div class="col-md-9">
+              <input class="form-control" id="datetimepicker" type="text">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">邀请范围</label>
+            <div class="col-md-7">
+              <input type="text" class="form-control" ng-model=declareData.peopleRange>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">用车数量</label>
+            <div class="col-md-7">
+              <input type="number" class="form-control" value="10" ng-model=declareData.carCount>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">用车来源</label>
+            <div class="col-md-7" ng-class="{'has-error':form.carSource.$error.required&&form.$submitted}">
+              <input type="text" class="form-control" ng-model=declareData.carSource  name="carSource" required>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="col-md-3 control-label">所属部门</label>
+            <div class="col-md-9">
+              <select class="form-control" ng-model="staffOrgIdBS"  ng-change="staffOrgId()" ng-init="staffOrgIdBS='根组织'">
+                <option>根组织</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="form-group col-md-7">
+            <label class="col-md-2 control-label">本人承诺</label>
+            <div class="col-md-10">
+              <textarea class="form-control" rows="3"  ng-model=declareData.selfPromise></textarea>
+            </div>
+          </div>
+          <div class="form-group  col-md-5">
+            <label for="exampleInputFile">邀请名单</label>
+            <input type="file" id="exampleInputFile" ng-model=declareData.attachmentFileCode>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label class="col-md-5 control-label">承诺人</label>
+            <div class="col-md-7">
+              <input type="text" class="form-control" ng-model=declareData.promisePeople>
+            </div>
+          </div>
+          <div class="col-md-7">
+
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-primary col-md-12" ng-click="submit()">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+

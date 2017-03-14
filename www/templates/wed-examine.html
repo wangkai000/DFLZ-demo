@@ -1,0 +1,123 @@
+<!-- 婚丧/审批 -->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        审批
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="col-md-2 control-label notwrap">申报人：</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model=examineSearch.staff>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-model="auditStatus" ng-change="choseAuditStatus()" ng-init="auditStatus='待审核'">
+                                <option>待审核</option>
+                                <option>通过</option>
+                                <option>拒绝</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default" ng-click="searchExamine()">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 审批表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                      <th  ng-click='SortApproval($index)' ng-repeat="str in approvalArray" style="cursor:pointer" title="点击{{str}}排序">{{str}}
+                                        <span class="caret" ng-class="{'sorting':itemsApproval==$index?approvalSwitch:false}">&nbsp;</span></th><!--233-->
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="(key, value) in examineSearchData|orderBy:approvalOrdery:approvalSwitch">
+                                    <td ng-bind="value.staff"  style="max-width: 100px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap"></td>
+                                    <td ng-bind="value.staffOrgName"></td>
+                                    <td ng-bind="value.eventType==1?'婚嫁':'丧葬'"></td>
+                                    <td ng-bind="value.peopleCount"></td>
+                                    <td ng-bind="value.createTime"></td>
+                                    <td ng-bind="value.eventDate"></td>
+                                    <td ng-bind="value.auditStatus==null ?'待审批':value.auditStatus==1?'通过':'拒绝'"></td>
+                                    <td>
+                                        <!-- 通过按钮 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#allow" ng-click="pass()">通过</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        意见
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail3" class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=allowParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary col-md-12" data-dismiss="modal" ng-click="confirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 拒绝按钮 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#refuse" ng-click="refuse()">拒绝</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="refuse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        意见
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail3" class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=allowParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary col-md-12" data-dismiss="modal" ng-click="confirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 审批表格 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate">
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[examineSearch.page-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+                <!-- Button trigger modal -->
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<!--查询统计 组合查询-->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        组合查询
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-1 control-label notwrap">申报类型:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-model="staffJobBS" ng-change="eventTypBS()"  ng-init="staffJobBS='全部'">
+                               <option>全部</option>
+                               <option>婚嫁</option>
+                               <option>丧葬</option>
+                             </select>
+                        </div>
+                        <label class="col-md-2 control-label notwrap">宴请人数:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-model="auditStatus"  ng-change="peopleCountBS()" ng-init="auditStatus='全部'">
+                                <option>全部</option>
+                                <option>0-50人</option>
+                                <option>50-100人</option>
+                                <option>100-150人</option>
+                                <option>150-200人</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-default" ng-click="searchExamine()">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-1 control-label notwrap">申报时间:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" id="eventCreateTimeFrom" type="text">
+                        </div>
+                        <label class="col-md-1 control-label">至:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" id="eventCreateTimeTo" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="col-md-1 control-label notwrap">宴请时间:</label>
+                        <div class="col-md-2">
+                             <input class="form-control" id="eventTimeFrom" type="text">
+                        </div>
+                        <label class="col-md-1 control-label">至:</label>
+                        <div class="col-md-2">
+                           <input class="form-control" id="eventTimeTo" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 精确查询表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                        <!--<th>申报人</th>-->
+                                        <!--<th>部门</th>-->
+                                        <!--<th>类型</th>-->
+                                        <!--<th>人数</th>-->
+                                        <!--<th>申报时间</th>-->
+                                        <!--<th>宴请时间</th>-->
+                                        <!--<th>状态</th>-->
+                                        <!--<th>批示意见</th>-->
+                                    <th  ng-click='SortApproval4($index)' ng-repeat="str in approvalArray4" style="cursor:pointer;white-space:nowrap;" title="点击{{str}}排序">{{str}}
+                                    <span class="caret"  ng-class="{'sorting':itemsApproval4==$index?approvalSwitch4:false}">&nbsp;</span></th><!--233-->
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="(key, value) in searchPreciseData |limitTo :limit:(pageNumer-1)*limit|orderBy:approvalOrdery4:approvalSwitch4">
+                                    <td ng-bind="value.staff" style="max-width: 100px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap"></td>
+                                    <td ng-bind="value.staffOrgName"></td>
+                                    <td ng-bind="value.eventType==1?'婚嫁':'丧葬'"></td>
+                                    <td ng-bind="value.peopleCount"></td>
+                                    <td ng-bind="value.createTime"></td>
+                                    <td ng-bind="value.eventDate"></td>
+                                    <td ng-bind="value.auditStatus?'通过':'拒绝 '"></td>
+                                    <td ng-bind="value.auditContent"></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 精确查询表格 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate" ng-hide="isHide">
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[pageNumer-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+                <!-- Button trigger modal -->
+            </form>
+        </div>
+    </div>
+</div>

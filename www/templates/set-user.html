@@ -1,0 +1,194 @@
+<!-- 系统设置——用户管理  -->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        用户管理
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-12 text-right">
+                        <!-- 新增 -->
+                        <button type="button" ng-click='confirmAddSwitchfunction()' class="btn btn-default" data-toggle="modal" data-target="#allowContent">新增</button>
+                        <!-- 新增Modal -->
+                        <div class="modal fade" id="allowContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-left">用户名：</label>
+                                                <div class="col-sm-10" ng-class="{'has-error':(addUserParams.username==''?true:false)&&confirmAddSwitch}">
+                                                    <input type="text" class="form-control" ng-model=addUserParams.username>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-left">姓名：</label>
+                                                <div class="col-sm-10" ng-class="{'has-error':(addUserParams.name==''?true:false)&&confirmAddSwitch}">
+                                                    <input type="text" class="form-control" ng-model=addUserParams.name>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">部门：</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>根组织</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-left">密码：</label>
+                                                <div class="col-sm-10" ng-class="{'has-error':(addUserParams.password==''?true:false)&&confirmAddSwitch}">
+                                                    <input type="password" class="form-control" ng-model=addUserParams.password>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-left">确认密码：</label>
+                                                <div class="col-sm-10" ng-class="{'has-error':(addConfirmPassword.password==''?true:false)&&confirmAddSwitch}">
+                                                    <input type="password" class="form-control" ng-model=addConfirmPassword.password>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">角色：</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control" ng-options="role.id as role.name for role in roleGetAllList" ng-model="roleId" ng-change="changeAddRole(roleId)">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!--data-dismiss="modal"-->
+                                        <button type="button" class="btn btn-primary col-md-12" ng-click="confirmAdd()">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//新增Modal-->
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 用户表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th ng-click='SortingManagement($index)' ng-repeat="str in managementArray" style="cursor:pointer" title="点击{{str}}排序">{{str}}
+                                            <span class="caret" ng-class="{'sorting':itemsManagement==$index?managementSwitch:false}">&nbsp;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key, value) in userList|orderBy:managementOrdery:managementSwitch">
+                                        <td ng-bind="value.username"  style="max-width: 100px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap"></td>
+                                        <td ng-bind="value.name"></td>
+                                        <td ng-bind="value.orgName"></td>
+                                        <td>
+                                            <!-- 修改 -->
+                                            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#amendRole" ng-click="amendRole()">修改</button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="amendRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label text-left">用户名：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" ng-model=userGetByIdData.username disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label text-left">姓名：</label>
+                                                                    <div class="col-sm-10" ng-class="{'has-error':updateUserParams.name==''?true:false}">
+                                                                        <input type="text" class="form-control" ng-model=updateUserParams.name>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">部门：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control">
+                                                                            <option>根组织</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label text-left">密码：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="password" class="form-control" ng-model=updateUserParams.password placeholder="留空则不修改密码">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label text-left">确认密码：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="password" class="form-control" ng-model=confirmPassword.password placeholder="留空则不修改密码">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">角色：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control" ng-options="role.id as role.name for role in roleGetAllList" ng-model="roleId" ng-change="changeRole(roleId)">
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary col-md-12" ng-click="confirmAmend()">确定</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 删除 -->
+                                            <button type="button" class="btn btn-default btn-xs" ng-click="delRol()">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 用户表格 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate" ng-hide=isHide>
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[userShowParams.page-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+            </form>
+        </div>
+    </div>
+</div>

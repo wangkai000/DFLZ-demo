@@ -1,0 +1,100 @@
+<div class="overflow-hidden" >
+    <div class="wrapper preload">
+
+        <header class="top-nav  navHead" style=""><!--banner-->
+          <div class="container-group" >
+            <label  class="navPic"> <i class=" Icon   block fa fa-list-alt fa-2x"></i></label>
+            <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <span  class="navTitle">临汾经济技术开发区党风廉政建设责任制监系统</span>
+
+            <span class="navbar-right loginState">
+              <label >你好管理员<span ng-bind="usernameStorage"></span>&nbsp;</label>
+            <button class="btn btn-default btn-xs" ng-click="exitSiteButton()">退出</button>
+            </span>
+          </div>
+        </header>
+        <div class="asideParent">
+        <aside class="sidebar-menu fixed  " >
+            <div class="sidebar-inner scrollable-sidebar">
+                <div class="main-menu">
+                    <ul class="accordion">
+                        <li class="openable bg-palette1">
+                            <a href="">
+                                <span class="menu-content block">
+                                <span class="menu-icon">
+                                  <!--<i class="block fa fa-list fa-lg"></i>-->
+                                  <i class="block fa fa-list-alt fa-1x"></i>
+                                </span>
+                                <span class="text m-left-sm">申报管理</span>
+                                <span class="submenu-icon"></span>
+                                </span>
+                            </a>
+                            <ul class="submenu bg-palette4">
+                                <li><a ui-sref=".declare"><span class="submenu-label">申报</span></a></li>
+                                <li><a ui-sref=".examine"><span class="submenu-label">审批</span></a></li>
+                                <li><a ui-sref=".publicity"><span class="submenu-label">公示</span></a></li>
+                                <li><a ui-sref=".supervise"><span class="submenu-label">现场监督</span></a></li>
+                                <li class="openable">
+                                    <a href="#">
+                                        <small class="badge badge-success badge-square bounceIn animation-delay2 m-left-xs pull-right">3</small>
+                                        <span class="submenu-label">查询统计</span>
+                                    </a>
+                                    <ul class="submenu third-level">
+                                        <li><a ui-sref=".searchPrecise"><span class="submenu-label">精确查询</span></a></li>
+                                        <li><a ui-sref=".searchCombina"><span class="submenu-label">组合查询</span></a></li>
+                                        <li><a ui-sref=".searchQuantity"><span class="submenu-label">数量统计</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="openable bg-palette1">
+                            <a href="">
+                                <span class="menu-content block">
+                                            <span class="menu-icon">
+                                              <!--<i class="block fa fa-list fa-lg"></i>-->
+                                              <i class="block fa fa-user fa-1x"></i>
+                                            </span>
+                                <span class="text m-left-sm">责任追究</span>
+                                <span class="submenu-icon"></span>
+                                </span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a ui-sref=".notification"><span class="submenu-label">公开通报</span></a></li>
+                                <li><a ui-sref=".punishment"><span class="submenu-label">纪律处分</span></a></li>
+                            </ul>
+                            <li class="openable bg-palette1">
+                                <a href="">
+                                    <span class="menu-content block">
+                                            <span class="menu-icon">
+                                              <!--<i class="block fa fa-list fa-lg"></i>-->
+                                             <i class="block fa fa-cogs  fa-1x"></i>
+                                            </span>
+                                    <span class="text m-left-sm">系统设置</span>
+                                    <span class="submenu-icon"></span>
+                                    </span>
+                                </a>
+                                <ul class="submenu bg-palette4">
+                                    <li><a ui-sref=".user"><span class="submenu-label">用户管理</span></a></li>
+                                    <li><a ui-sref=".role"><span class="submenu-label">角色管理</span></a></li>
+                                </ul>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- sidebar-inner -->
+        </aside>
+        </div>
+        <div class="main-container">
+
+                <div ui-view="main-detail"> <div class="defaultDisplay"><h3>临汾经济技术开发区党风廉政建设责任制监督系统</h3></div></div>
+            </div>
+            <!-- ./padding-md -->
+        </div>
+        <!-- /main-container -->
+    </div>
+    <!-- /wrapper -->
+</div>

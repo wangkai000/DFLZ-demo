@@ -1,0 +1,136 @@
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        公示
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="col-md-2 control-label notwrap">申报人：</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model=publicityParams.staff>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-change="choseAuditStatus()" ng-model="auditStatus"
+                            ng-init="auditStatus='未公示'">
+                                <option>未公示</option>
+                                <option>已公示</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default" ng-click="searchExamine()">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 审批表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                    <th  ng-click='SortApproval($index)' ng-repeat="(key,value) in approvalArray" style="cursor:pointer" title="点击{{value}}排序">{{value}}
+                                    <span class="caret" ng-class="{'sorting':itemsApproval1==$index?approvalSwitch1:false}">&nbsp;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="(key, value) in publicitySearchData|orderBy:approvalOrdery1:approvalSwitch1">
+                                    <td ng-bind="value.staff"  style="max-width: 100px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap"></td>
+                                    <td ng-bind="value.staffOrgName"></td>
+                                    <td ng-bind="value.eventType==1?'婚嫁':'丧葬'"></td>
+                                    <td ng-bind="value.peopleCount"></td>
+                                    <td ng-bind="value.createTime"></td>
+                                    <td ng-bind="value.eventDate"></td>
+                                    <td ng-bind="value.eventBulletinId?'已公式':'未公式'"></td>
+                                    <td>
+                                        <!-- 公式内容 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#allowContent" ng-click="publicityContent()">公示内容</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allowContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail3" class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=publicityContentParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputFile" class="col-sm-2 control-label text-left">附件</label>
+                                                                <input type="file" id="exampleInputFile" class="col-sm-10" ng-model=publicityContentParams.attachmentFileCode>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary col-md-12" data-dismiss="modal" ng-click="contentConfirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 公示结果 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#allowResult" ng-click="publicityResult()">公示结果</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allowResult" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail3" class="col-sm-2 control-label text-left">结果</label>
+                                                                <label class="checkbox-inline col-sm-4">
+                                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" ng-click="allow()" ng-checked=status>通过
+                                                                </label>
+                                                                <label class="checkbox-inline col-sm-4">
+                                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" ng-click="refuse()" ng-checked=!status>有异议
+                                                                </label>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail3" class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=publicityResultParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary col-md-12" data-dismiss="modal" ng-click="resultConfirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 审批表格 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate">
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[publicityParams.page-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+            </form>
+        </div>
+    </div>
+</div>

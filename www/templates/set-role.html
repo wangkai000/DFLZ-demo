@@ -1,0 +1,493 @@
+<!-- 系统设置——角色管理  -->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        角色管理
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <!-- 新增 -->
+                        <div class="text-right">
+                            <button type="button" ng-click="onfirmAddParamsFunction()" class="btn btn-default" data-toggle="modal" data-target="#allowContent">新增</button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="allowContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizonta2" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">角色名:</label>
+                                                <div class="col-sm-11" ng-class="{'has-error':(confirmAddParams.roleName==''?true:false)&&onfirmAddParamsSwitch}">
+                                                    <input type="text" class="form-control" ng-model=confirmAddParams.roleName>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <h5><strong>子系统访问</strong></h5>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1"> 婚丧事宜申报
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2"> 四风问题举报
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="3"> 廉政教育
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="4"> 系统设置
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <h5><strong>婚丧</strong></h5>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.1"> 婚丧申报
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.2"> 婚丧审批
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.3"> 婚丧公示
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.4"> 婚丧现场监督
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.5"> 婚丧查询统计
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.6"> 婚丧举报登记
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.7"> 婚丧举报处理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.8"> 婚丧查处处理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.9"> 婚丧公开通报查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.10"> 婚丧公开通报管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.11"> 婚丧纪律处分查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.12"> 婚丧纪律处分管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.13"> 婚丧承诺书查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.14"> 婚丧承诺书管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.15"> 婚丧专题教育查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.16"> 婚丧专题教育管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.17"> 婚丧集中整改查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="1.18"> 婚丧集中整改管理
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <h5><strong>投诉</strong></h5>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2.1"> 四风问题投诉查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2.2"> 纪委书记信箱查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2.3"> 大操大办查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2.4"> 吃拿卡要查看
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="2.5"> 投诉举报查看
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <h5><strong>廉政教育</strong></h5>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="3.1"> 必修课管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="3.2"> 选修课管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="3.3"> 廉政视频管理
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                         <h5><strong>系统设置</strong></h5>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="4.1"> 用户管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="4.2"> 组织管理
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox col-sm-3">
+                                                    <label>
+                                                        <input type="checkbox" title="4.3"> 角色管理
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!--data-dismiss="modal"-->
+                                        <button type="button" class="btn btn-primary col-md-12" ng-click="confirmAdd()">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 用户表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                        <!--<th>角色名</th>-->
+                                        <!--<th>操作</th>-->
+                                        <th ng-click='SortRoleManagement($index)' ng-repeat="str in RoleManagement" style="cursor:pointer" title="点击{{str}}排序">{{str}}
+                                            <span class="caret" ng-class="{'sorting':itemsRole==$index?RoleManagementSwitch:false}">&nbsp;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key, value) in roleShowList|orderBy:RoleManagementOrdery:RoleManagementSwitch">
+                                        <td ng-bind="value.name"></td>
+                                        <td>
+                                            <!-- 修改 -->
+                                            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#amendContent" ng-click="amendRole()">修改</button>
+                                            <!-- 删除 -->
+                                            <button type="button" class="btn btn-default btn-xs" ng-click="delRol()">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Modal -->
+                    <div class="modal fade" id="amendContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    修改角色
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-1 control-label">角色名:</label>
+                                            <div class="col-sm-11" ng-class="{'has-error':(roleUpdateParams.roleName==''?true:false)&&onfirmAddParamsSwitch}">
+                                                <input type="text" class="form-control" ng-model=roleUpdateParams.roleName>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <h5><strong>子系统访问</strong></h5>
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1"> 婚丧事宜申报
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2"> 四风问题举报
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="3"> 廉政教育
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="4"> 系统设置
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <h5><strong>婚丧</strong></h5>
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.1"> 婚丧申报
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.2"> 婚丧审批
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.3"> 婚丧公示
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.4"> 婚丧现场监督
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.5"> 婚丧查询统计
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.6"> 婚丧举报登记
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.7"> 婚丧举报处理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.8"> 婚丧查处处理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.9"> 婚丧公开通报查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.10"> 婚丧公开通报管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.11"> 婚丧纪律处分查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.12"> 婚丧纪律处分管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.13"> 婚丧承诺书查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.14"> 婚丧承诺书管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.15"> 婚丧专题教育查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.16"> 婚丧专题教育管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.17"> 婚丧集中整改查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="1.18"> 婚丧集中整改管理
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <h5><strong>投诉</strong></h5>
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2.1"> 四风问题投诉查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2.2"> 纪委书记信箱查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2.3"> 大操大办查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2.4"> 吃拿卡要查看
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="2.5"> 投诉举报查看
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <h5><strong>廉政教育</strong></h5>
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="3.1"> 必修课管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="3.2"> 选修课管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="3.3"> 廉政视频管理
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                     <h5><strong>系统设置</strong></h5>
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="4.1"> 用户管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="4.2"> 组织管理
+                                                </label>
+                                            </div>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" title="4.3"> 角色管理
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--data-dismiss="modal"-->
+                                    <button type="button" class="btn btn-primary col-md-12" ng-click="confirmAmend()">确定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 用户表格 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate" ng-hide=isHide>
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[roleShowParams.page-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+            </form>
+        </div>
+    </div>
+</div>

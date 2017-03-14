@@ -1,0 +1,219 @@
+<!-- 责任追究-公开通报 -->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        公开通报
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row ">
+                    <div class="form-group col-md-6">
+                        <label class="col-md-2 control-label notwrap">被通报人</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model=disciplinePunishShow.staff>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="form-group btn btn-default " ng-click="obtain()">查询</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button ng-click="restore()" class="btn btn-default pull-right" data-toggle="modal" data-target="#normalModal">添加</button>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 审批表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-striped table-responsive table-hover" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th ng-click='sorting($index)' ng-repeat="str in species" style="cursor:pointer" title="点击{{str}}排序">{{str}}
+                                            <span class="caret" ng-class="{'sorting':items==$index?reverseSwitch:false}">&nbsp;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody title="双击查看内容">
+                                    <thead class='table-hover' style="cursor:pointer" ng-repeat="val in arraypage|limitTo:30:Startpage |orderBy:RoleManagementOrdery:reverseSwitch" ng-dblclick="get()" title="双击查看第{{Startpage+($index+1)}}项">
+                                        <tr class="message-table table-responsive thead-inverse">
+                                            <td>{{val.staff}}</td>
+                                            <td>{{val.staffOrgName}}</td>
+                                            <td>{{val.title}}</td>
+                                            <td>{{val.createTime}}</td>
+                                            <td>
+                                                <button ng-click="edit()" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#editModal">修改</button>
+                                                <button ng-click="del()" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#delModal">删除</button>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 审批表格 -->
+                <!-- 新增通报 模态框 -->
+                <div class="modal fade" id="normalModal" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" ng-click="restore()" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body ">
+                                <form class="form-horizontal" name="myform">
+                                  <!---->
+                                  <div class="form-group">
+                                    <label  class="col-lg-2 control-label">标题:</label>
+                                    <div class="col-lg-10" ng-class="{'has-error':(addObj.title==''?true:false)&&switchTitle}">
+                                      <input type="text" class="form-control" ng-model="addObj.title" name="title">
+                                    </div>
+
+                                  </div>
+                                  <div class="form-group">
+                                    <label  class="col-lg-2 control-label">人员:</label>
+                                    <div class="col-lg-10" ng-class="{'has-error':(addObj.staff==''?true:false)&&switchStaff}">
+                                      <input type="text" class="form-control" ng-model="addObj.staff" name="staff">
+                                    </div>
+
+                                  </div>
+                                  <!---->
+                                  <!--  -->
+                                  <div class="form-group">
+                                    <label  class="col-lg-2 control-label">部门:</label>
+                                    <div class="col-lg-10" >
+                                      <select class="form-control "  >
+                                        <option ng-model="department">根组织</option>
+                                      </select>
+                                    </div>
+
+                                  </div>
+                                  <!---->
+                                  <div class="form-group">
+                                    <label  class="col-lg-2 control-label">内容:</label>
+                                    <div class="col-lg-10" ng-class="{'has-error':(addObj.content==''?true:false)&&switchContent}">
+                                      <textarea  type='text'  class="form-control" name="content"  ng-model="addObj.content"></textarea>
+                                    </div>
+
+                                  </div>
+
+                                </form>
+                            </div>
+                          <div class=" modal-footer form-inline">
+                            <button type="submit" class="btn btn-primary col-md-12" ng-click="add()">确定</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //新增通报 模态框 -->
+                <!-- 修改通报 modal -->
+                <div class="modal fade" id="editModal" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputTitle" class="col-lg-2 control-label">标题:</label>
+                                        <div class="col-lg-10" ng-class="{'has-error':editObj.title==''?true:false}">
+                                            <input type="text" class="form-control" ng-model="editObj.title">
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputTitle" class="col-lg-2 control-label">人员:</label>
+                                        <div class="col-lg-10" ng-class="{'has-error':editObj.staff==''?true:false}">
+                                            <input type="text" class="form-control" ng-model="editObj.staff">
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">根组织:</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control">
+                                                <option>根组织</option>
+                                            </select>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">内容:</label>
+                                        <div class="col-lg-10" ng-class="{'has-error':editObj.content==''?true:false}">
+                                            <textarea class="form-control" rows="3" ng-model="editObj.content"></textarea>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /form-group -->
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary col-md-12" ng-click="editConfirm()">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /modal -->
+                <!-- 双击模态框 -->
+                <div class="modal fade" id="getModal" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputTitle1" class="col-lg-2 control-label">标题:</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="inputTitle1" ng-model="detailArr.title" readonly="readonly">
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputTitle" class="col-lg-2 control-label">人员:</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="inputTitle" ng-model="detailArr.staff" readonly="readonly">
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">根组织:</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control">
+                                                <option>根组织</option>
+                                            </select>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">内容:</label>
+                                        <div class="col-lg-10">
+                                            <textarea ng-model="detailArr.content" readonly="readonly" class="form-control" rows="3"></textarea>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /form-group -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //双击模态框 -->
+                <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate" style="cursor:pointer">
+                        <li title='上一页' class="ulli " ng-click="prePage() "><a>&laquo;</a></li>
+                        <!--<li  class=" ulli " ><a class="form-inline "><span>第</span>-->
+                        <!--<input type="text "  class="form-control input-sm " style="width:42px;height:18px; "-->
+                        <!--value="{{pageStart+1}} ">-->
+                        <!--<span >页,共{{total}}页</span></a></li> |limitTo:totalNumber-->
+                        <li class="ulli " ng-class="{true:'active',false:''}[indexPage==$index?true:false]" ng-click="liClick($index) " title="当前页面第{{(Startpage/100)+1}}页 " ng-repeat="str in arraypage|limitTo:totalNumber "><a>{{$index+1}}</a></li>
+                        <li class="ulli " title='下一页' ng-click="nextPage() "><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+                <!-- Button trigger modal -->
+            </form>
+        </div>
+    </div>
+</div>
+<!--loading-->
+<!--加载动画 -->

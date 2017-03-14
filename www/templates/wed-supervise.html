@@ -1,0 +1,196 @@
+<!-- 婚丧/现场监督 -->
+<div class="panel">
+    <div class="panel-heading  panel-primary">
+        现场监督
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-horizontal" role="form">
+                <!-- 按需查询 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="col-md-2 control-label notwrap">申报人：</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model=superviseParams.staff>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-model="searchStaffBS" ng-init="searchStaffBS='未监督'" ng-change="choseAuditStatus()">
+                                <option>未监督</option>
+                                <option>已监督</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default" ng-click="searchExamine()">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 按需查询 -->
+                <!-- 审批表格 -->
+                <div class="row">
+                    <div class="inbox-body padding-md">
+                        <div class="message-table table-responsive">
+                            <table class="table table-bordereds">
+                                <thead class="text-center">
+                                    <tr>
+                                    <th  ng-click='SortApproval2($index)' ng-repeat="str in approvalArray2" style="cursor:pointer" title="点击{{str}}排序">{{str}}
+                                    <span class="caret" ng-class="{'sorting':itemsApproval2==$index?approvalSwitch2:false}">&nbsp;</span></th><!--233-->
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="(key, value) in superviseSearchData|orderBy:approvalOrdery2:approvalSwitch2">
+                                    <td ng-bind="value.staff"  style="max-width: 100px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap"></td>
+                                    <td ng-bind="value.staffOrgName"></td>
+                                    <td ng-bind="value.eventType==1?'婚嫁':'丧葬'"></td>
+                                    <td ng-bind="value.peopleCount"></td>
+                                    <td ng-bind="value.createTime"></td>
+                                    <td ng-bind="value.eventDate"></td>
+                                    <td ng-bind="value.eventSuperviseReportId?'已监督':'未监督'"></td>
+                                    <td>
+                                        <!-- 监督报告 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#allowContent" ng-click="superviesReport()">监督报告</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allowContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label text-left">标题</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="1" ng-model=superviesReportParams.title></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=superviesReportParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" ng-click="reportConfirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 违纪登记 -->
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#allowResult" ng-click="principleBreaking()">违纪登记</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allowResult" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label text-left">礼金超标</label>
+                                                                <label class="radio-inline col-sm-4">
+                                                                    <input type="radio"  value="option1" ng-click="isCashGiftOutOfLimitsForTrue()" ng-checked=isCashGiftOutOfLimitsCode>是
+                                                                </label>
+                                                                <label class="radio-inline col-sm-4">
+                                                                    <input type="radio"  value="option2" ng-click="isCashGiftOutOfLimitsForFalse()"  ng-checked=!isCashGiftOutOfLimitsCode>否
+                                                                </label>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                           <div class="form-group">
+                                                               <label class="col-sm-2 control-label text-left">使用公车</label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option1" ng-click="isUsePublicCarForTrue()" ng-checked=isUsePublicCarCode>是
+                                                               </label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option2" ng-click="isUsePublicCarForFalse()" ng-checked=!isUsePublicCarCode>否
+                                                               </label>
+                                                           </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                           <div class="form-group">
+                                                               <label class="col-sm-2 control-label text-left">使用公产</label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option1" ng-click="isUsePublicAssertsForTrue()" ng-checked=isUsePublicAssetsCode>是
+                                                               </label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option2" ng-click="isUsePublicAssertsForFalse()" ng-checked=!isUsePublicAssetsCode>否
+                                                               </label>
+                                                           </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                           <div class="form-group">
+                                                               <label class="col-sm-2 control-label text-left">使用公物</label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option1" ng-click="isUsePublicGoodsForTrue()"  ng-checked=isUsePublicGoodsCode>是
+                                                               </label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option2" ng-click="isUsePublicGoodsForFalse()"  ng-checked=!isUsePublicGoodsCode>否
+                                                               </label>
+                                                           </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                           <div class="form-group">
+                                                               <label class="col-sm-2 control-label text-left">使用公款</label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option1" ng-click="isUsePublicMoneyForTrue()" ng-checked=isUsePublicMoneyCode>是
+                                                               </label>
+                                                               <label class="radio-inline col-sm-4">
+                                                                   <input type="radio"  value="option2" ng-click="isUsePublicMoneyForFalse()"  ng-checked=!isUsePublicMoneyCode>否
+                                                               </label>
+                                                           </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputFile" class="col-sm-2 control-label text-left">附件</label>
+                                                                <input type="file" class="col-sm-10" ng-model=principleBreakingParams.attachmentFileCode>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label text-left">其他问题</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="1" ng-model=principleBreakingParams.otherQuestion></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label text-left">内容</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="4" ng-model=principleBreakingParams.content></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" ng-click="principleBreakingConfirm()">确定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 审批表格 -->
+                 <!-- 分页 -->
+                <div class="row">
+                    <ul class="pagination ulli " id="generate">
+                        <li class="ulli" ng-click="previousPage()"><a>&laquo;</a></li>
+                        <li class="lia ulli" ng-repeat="(key, value) in page" ng-click="changePage()" ng-class="{true:'active',false:''}[superviseParams.page-1==$index]">
+                            <a ng-bind="value"></a>
+                        </li>
+                        <li class="ulli" ng-click="nextPage()"><a>&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- 分页 -->
+            </form>
+        </div>
+    </div>
+</div>
